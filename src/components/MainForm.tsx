@@ -52,7 +52,7 @@ export function MainForm() {
       </aside>
       <main className="flex-1">
         <div className="flex h-full w-full flex-col gap-4">
-          <div className="flex flex-1 flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <label
               className="text-sm font-semibold"
               htmlFor="transcription_prompt"

@@ -11,6 +11,7 @@ export function VideoItem({ file }: VideoItemProps) {
   const [isConvertingVideoToAudio, setIsConvertingVideoToAudio] =
     useState(false)
   const [uploadedVideoKey, setUploadedVideoKey] = useState<string | null>(null)
+  const [isTranscribed, setIsTranscribed] = useState<boolean>(false)
 
   const previewURL = useMemo(() => {
     return URL.createObjectURL(file)
@@ -58,14 +59,14 @@ export function VideoItem({ file }: VideoItemProps) {
   }, [file])
 
   async function generateTranscription() {
-    const { transcription } = await fetch('/api/ai/transcribe', {
+    await fetch('/api/ai/transcribe', {
       method: 'POST',
       body: JSON.stringify({
         videoKey: uploadedVideoKey,
       }),
     }).then((response) => response.json())
 
-    alert(transcription)
+    setIsTranscribed(true)
   }
 
   useEffect(() => {
@@ -81,14 +82,25 @@ export function VideoItem({ file }: VideoItemProps) {
         controls={false}
       />
 
-      <button
-        type="button"
-        onClick={generateTranscription}
-        disabled={isConvertingVideoToAudio}
-        className="absolute right-2 top-2 rounded bg-violet-500 px-2 py-1 text-xs font-medium text-white hover:enabled:bg-violet-600 disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        Transcrever
-      </button>
+      {isTranscribed ? (
+        <a
+          target="_blank"
+          download
+          href={`/api/ai/transcribe/download?key=${uploadedVideoKey}`}
+          className="absolute right-2 top-2 rounded bg-emerald-500 px-2 py-1 text-xs font-medium text-white hover:enabled:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          Baixar transcrição
+        </a>
+      ) : (
+        <button
+          type="button"
+          onClick={generateTranscription}
+          disabled={isConvertingVideoToAudio}
+          className="absolute right-2 top-2 rounded bg-violet-500 px-2 py-1 text-xs font-medium text-white hover:enabled:bg-violet-600 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+          Transcrever
+        </button>
+      )}
 
       <span className="absolute bottom-0 left-0 right-0 bg-black/40 p-1 text-center text-xs text-zinc-200">
         {isConvertingVideoToAudio ? `${progress}%` : file.name}
