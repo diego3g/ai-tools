@@ -27,6 +27,7 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "form-data": "4.0.0",
+    "immer": "10.0.1",
     "jszip": "3.10.1",
     "lucide-react": "0.195.0",
     "next": "13.3.4",
@@ -37,7 +38,8 @@
     "react-hook-form": "7.43.9",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4",
-    "zod": "3.21.4"
+    "zod": "3.21.4",
+    "zustand": "4.3.8"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "1.2.0",

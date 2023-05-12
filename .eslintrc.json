@@ -2,5 +2,8 @@
   "extends": [
     "@rocketseat/eslint-config/react",
     "next/core-web-vitals"
-  ]
+  ],
+  "rules": {
+    "no-unused-vars": "off"
+  }
 }
